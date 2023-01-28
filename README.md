@@ -15,3 +15,8 @@ This project is to practice connecting Back-end to Front-end
 2. Step 2: yarn start
 
 **Remember to run both front-end and back-end at the same time**
+
+## Requirements
+
+1.  Create the product list in the `data` folder
+2.  Create a server in the `index.ts`
