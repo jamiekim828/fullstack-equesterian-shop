@@ -18,5 +18,7 @@ This project is to practice connecting Back-end to Front-end
 
 ## Requirements
 
-1.  Create the product list in the `data` folder
-2.  Create a server in the `index.ts`
+1. Create the product list in the `data` folder
+2. Create a server in the `index.ts`
+3. Create at least 2 methods (`GET` and `POST`) to get all the products and post to create a new product
+4. Display the product list in the `ProductList component`
