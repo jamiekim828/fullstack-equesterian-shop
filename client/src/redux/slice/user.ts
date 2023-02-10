@@ -25,6 +25,9 @@ const userSlice = createSlice({
     addNewUser: (state, action) => {
       state.users.push(action.payload);
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 

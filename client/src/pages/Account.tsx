@@ -7,7 +7,12 @@ export default function Account() {
   return (
     <div className='flex'>
       <UserInformation />
-      <Lottie loop animationData={horse} play style={{ width: '200px' }} />
+      <Lottie
+        loop
+        animationData={horse}
+        play
+        style={{ width: '200px', marginTop: '7rem' }}
+      />
     </div>
   );
 }

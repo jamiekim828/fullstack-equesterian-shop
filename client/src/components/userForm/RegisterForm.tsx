@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchUserData, registerNewUser } from '../../redux/thunk/user';
 import { useNavigate } from 'react-router-dom';
+import { actions } from '../../redux/slice/user';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -50,6 +51,7 @@ export default function RegisterForm({ handleClose }: Prop) {
       setRegister(false);
     }
     dispatch(registerNewUser(newUser));
+    dispatch(actions.setUser(newUser));
     setRegister(true);
     handleClose(true);
     navigate('/account');

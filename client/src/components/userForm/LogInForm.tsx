@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from '../../redux/store';
 import { fetchUserData } from '../../redux/thunk/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { actions } from '../../redux/slice/user';
 
 const LogInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -47,6 +48,7 @@ export default function LogInForm({ handleClose }: Prop) {
       if (userList[index].password !== loginInfo.password) {
         setWrongInfo(true);
       }
+      dispatch(actions.setUser(loginInfo));
       setLogIn(true);
       handleClose(true);
       navigate('/account');
