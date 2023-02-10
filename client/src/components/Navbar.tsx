@@ -90,7 +90,9 @@ export default function Navbar() {
               </div>
               <DialogContent>
                 {openLogIn === true && <LogInForm handleClose={handleClose} />}
-                {openRegister === true && <RegisterForm />}
+                {openRegister === true && (
+                  <RegisterForm handleClose={handleClose} />
+                )}
               </DialogContent>
             </Dialog>
           </div>

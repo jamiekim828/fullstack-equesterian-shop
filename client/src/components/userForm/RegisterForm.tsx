@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { User } from '../../types/type';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { fetchUserData, registerNewUser } from '../../redux/thunk/user';
+import { useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -25,11 +29,30 @@ const SignupSchema = Yup.object().shape({
     .required('Password confirmation is required'),
 });
 
-export default function RegisterForm() {
+type Prop = {
+  handleClose: Function;
+};
+
+export default function RegisterForm({ handleClose }: Prop) {
   const [visible, setVisible] = useState<boolean>(true);
+  const [register, setRegister] = useState<boolean>(true);
+  const userList = useSelector((state: RootState) => state.user.users);
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   const handleRegister = (newUser: User) => {
-    console.log(newUser);
+    const index = userList.findIndex((user) => user.email === newUser.email);
+    if (index !== -1) {
+      setRegister(false);
+    }
+    dispatch(registerNewUser(newUser));
+    setRegister(true);
+    handleClose(true);
+    navigate('/account');
   };
 
   return (
@@ -51,6 +74,9 @@ export default function RegisterForm() {
           {({ errors, touched, handleChange }) => (
             <Form>
               <div className='relative mb-4'>
+                <div>
+                  {register === false && <p>This email is already exist.</p>}
+                </div>
                 <label className='leading-7 text-sm text-gray-600'>
                   First Name
                 </label>
