@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { EditValue, User } from '../../types/type';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
-import { fetchUserData } from '../../redux/thunk/user';
+import { EditValue, User, UserData } from '../../types/type';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store';
+import { editUserInfo, fetchUserData } from '../../redux/thunk/user';
 import { useNavigate } from 'react-router-dom';
+import { actions } from '../../redux/slice/user';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -21,22 +22,24 @@ const SignupSchema = Yup.object().shape({
 
 type Prop = {
   user: User;
-  setFormOpen: Function;
+  setFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function EditForm({ user, setFormOpen }: Prop) {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);
 
+  const users = useSelector((state: RootState) => state.user.users);
   const handleSave = (newInfo: EditValue) => {
-    // const id = user.id;
-    // dispatch(editUserInfo(id, newInfo));
+    const index = users.findIndex((u) => u.email === user.email);
+    const currentUser = users[index];
+    console.log(newInfo); //okay until here
+    dispatch(editUserInfo(currentUser, newInfo));
+    // dispatch(actions.setUser(newInfo))
     setFormOpen(false);
-    navigate('/account');
   };
 
   return (
@@ -110,6 +113,7 @@ export default function EditForm({ user, setFormOpen }: Prop) {
                 </button>
                 <button
                   type='submit'
+                  onClick={() => setFormOpen(false)}
                   className='border-solid border-1 border-black w-full h-9 mt-3'
                 >
                   CANCEL

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { AppDispatch } from '../store';
 import { actions } from '../slice/user';
-import { EditValue, User } from '../../types/type';
+import { EditValue, User, UserData } from '../../types/type';
 
 const url = 'http://localhost:8000';
 
@@ -27,10 +27,12 @@ export function registerNewUser(user: User) {
 }
 
 // edit user information
-export function editUserInfo(id: string | undefined, editInfo: EditValue) {
+export function editUserInfo(currentUser: UserData, editInfo: EditValue) {
   return async (dispatch: AppDispatch) => {
-    const response = await axios.put(`${url}/user/${id}`, { editInfo });
+    const response = await axios.put(`${url}/user/${currentUser.id}`, editInfo);
+
     const editData = await response.data;
+    console.log(editData);
     dispatch(actions.getUserList(editData));
   };
 }

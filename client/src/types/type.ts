@@ -22,3 +22,11 @@ export type EditValue = {
   lastName: string;
   email: string;
 };
+
+export type UserData = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
