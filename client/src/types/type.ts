@@ -16,3 +16,9 @@ export type HorseProduct = {
   price: number;
   image: string;
 };
+
+export type EditValue = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};

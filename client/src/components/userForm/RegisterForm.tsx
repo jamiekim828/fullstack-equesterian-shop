@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { User } from '../../types/type';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchUserData, registerNewUser } from '../../redux/thunk/user';
-import { useNavigate } from 'react-router-dom';
 import { actions } from '../../redux/slice/user';
+import { User } from '../../types/type';
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -32,29 +33,39 @@ const SignupSchema = Yup.object().shape({
 
 type Prop = {
   handleClose: Function;
+  setOpenLogIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenRegister: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function RegisterForm({ handleClose }: Prop) {
+export default function RegisterForm({
+  handleClose,
+  setOpenLogIn,
+  setOpenRegister,
+  setOpen,
+}: Prop) {
   const [visible, setVisible] = useState<boolean>(true);
   const [register, setRegister] = useState<boolean>(true);
   const userList = useSelector((state: RootState) => state.user.users);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchUserData());
   }, [dispatch]);
 
   const handleRegister = (newUser: User) => {
-    const index = userList.findIndex((user) => user.email === newUser.email);
+    const index = userList.findIndex(
+      (user: User) => user.email === newUser.email
+    );
     if (index !== -1) {
       setRegister(false);
     }
     dispatch(registerNewUser(newUser));
     dispatch(actions.setUser(newUser));
+    setOpenLogIn(true);
+    setOpenRegister(false);
     setRegister(true);
     handleClose(true);
-    navigate('/account');
   };
 
   return (
@@ -71,6 +82,7 @@ export default function RegisterForm({ handleClose }: Prop) {
           validationSchema={SignupSchema}
           onSubmit={(values) => {
             handleRegister(values);
+            setOpen(true);
           }}
         >
           {({ errors, touched, handleChange }) => (
@@ -189,7 +201,10 @@ export default function RegisterForm({ handleClose }: Prop) {
                   </p>
                 ) : null}
                 <div className='flex flex-col'>
-                  <button className='text-white bg-slate-500 border-0 py-2 px-8 my-2 focus:outline-none hover:bg-sky-800 rounded text-lg'>
+                  <button
+                    type='submit'
+                    className='text-white bg-slate-500 border-0 py-2 px-8 my-2 focus:outline-none hover:bg-sky-800 rounded text-lg'
+                  >
                     Register
                   </button>
                   <p className='text-xs text-gray-400 mt-5 underline'>

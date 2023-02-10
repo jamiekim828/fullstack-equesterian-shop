@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { AppDispatch } from '../store';
 import { actions } from '../slice/user';
-import { User } from '../../types/type';
+import { EditValue, User } from '../../types/type';
 
 const url = 'http://localhost:8000';
 
@@ -23,5 +23,23 @@ export function registerNewUser(user: User) {
     const userData = await response.data;
 
     dispatch(actions.addNewUser(userData));
+  };
+}
+
+// edit user information
+export function editUserInfo(id: string | undefined, editInfo: EditValue) {
+  return async (dispatch: AppDispatch) => {
+    const response = await axios.put(`${url}/user/${id}`, { editInfo });
+    const editData = await response.data;
+    dispatch(actions.getUserList(editData));
+  };
+}
+
+// user by id
+export function getUserByUserId(id: string | undefined) {
+  return async (dispatch: AppDispatch) => {
+    const response = await axios.get(`${url}/user/${id}`);
+    const user = await response.data;
+    dispatch(actions.getOneUser(user));
   };
 }

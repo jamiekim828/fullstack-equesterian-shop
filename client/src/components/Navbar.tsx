@@ -91,7 +91,12 @@ export default function Navbar() {
               <DialogContent>
                 {openLogIn === true && <LogInForm handleClose={handleClose} />}
                 {openRegister === true && (
-                  <RegisterForm handleClose={handleClose} />
+                  <RegisterForm
+                    handleClose={handleClose}
+                    setOpenLogIn={setOpenLogIn}
+                    setOpenRegister={setOpenRegister}
+                    setOpen={setOpen}
+                  />
                 )}
               </DialogContent>
             </Dialog>

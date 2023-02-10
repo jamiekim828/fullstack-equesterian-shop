@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import { RiderProduct } from '../../types/type';
 
@@ -7,9 +8,8 @@ type PropType = {
 };
 
 export default function ProductItem({ product }: PropType) {
-  console.log(product);
   return (
-    <div className='lg:w-1/4 md:w-1/2 p-4 w-full'>
+    <div className='lg:w-1/4 md:w-1/2 p-4 w-full' key={uuidv4()}>
       <Link to='' className='block relative h-70 rounded overflow-hidden'>
         <img
           alt={product.title}

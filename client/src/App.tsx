@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -8,6 +6,7 @@ import HorseProductList from './components/horseProducts/HorseProductList';
 import Navbar from './components/Navbar';
 import ProductList from './components/riderProducts/ProductList';
 import Account from './pages/Account';
+import CartPage from './pages/CartPage';
 import Home from './pages/Home';
 
 function App() {
@@ -19,6 +18,7 @@ function App() {
         <Route path='/rider' element={<ProductList />} />
         <Route path='/horse' element={<HorseProductList />} />
         <Route path='/account' element={<Account />} />
+        <Route path='/cart' element={<CartPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
