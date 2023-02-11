@@ -6,6 +6,8 @@ import CartDetail from './CartDetail';
 export default function Cart() {
   const cart = useSelector((state: RootState) => state.cart.cart);
   console.log(cart);
+  const cartPrice = cart.map((item) => item.price * item.quantity);
+
   return (
     <div className='flex mt-5 justify-center align-center lg:flex-row md:flex-col sm:flex-col'>
       <div className='flex flex-col mr-14 lg:w-2/4 md:w-full sm:w-full'>
@@ -25,7 +27,7 @@ export default function Cart() {
         <div className='flex flex-col'>
           <div className='flex justify-between mb-2'>
             <p>Order value</p>
-            <p>$ {}</p>
+            <p>$ {cart.length === 0 ? 0 : cartPrice.reduce((a, b) => a + b)}</p>
           </div>
           <div className='flex justify-between mb-2'>
             <p className='text-pink-400'>Shipping</p>
@@ -33,7 +35,7 @@ export default function Cart() {
           </div>
           <div className='flex justify-between mb-2'>
             <p>Total value</p>
-            <p>$ {}</p>
+            <p>$ {cart.length === 0 ? 0 : cartPrice.reduce((a, b) => a + b)}</p>
           </div>
           <div className='w-full text-center'>
             <button className='border border-1 border-black uppercase cursor-pointer px-12 py-3 mt-5'>

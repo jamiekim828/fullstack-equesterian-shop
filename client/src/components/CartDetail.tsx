@@ -1,11 +1,20 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+
 import ClearIcon from '@mui/icons-material/Clear';
+
 import { Cart } from '../types/type';
+import { AppDispatch } from '../redux/store';
+import { actions } from '../redux/slice/cart';
 
 type Prop = {
   cartItem: Cart;
 };
 export default function CartDetail({ cartItem }: Prop) {
+  const dispatch = useDispatch<AppDispatch>();
+  const removeHandler = (item: Cart) => {
+    dispatch(actions.removeCart(item));
+  };
   return (
     <div className='flex justify-between h-24 mb-2'>
       <img src={cartItem.image} alt={cartItem.title} className='h-full' />
@@ -42,7 +51,11 @@ export default function CartDetail({ cartItem }: Prop) {
           </div>
         </div>
       </div>
-      <ClearIcon sx={{ fontSize: 'sm', cursor: 'pointer' }} />
+
+      <ClearIcon
+        sx={{ fontSize: 'sm', cursor: 'pointer' }}
+        onClick={() => removeHandler(cartItem)}
+      />
     </div>
   );
 }

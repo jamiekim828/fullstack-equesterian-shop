@@ -19,7 +19,6 @@ export default function Navbar() {
   const [openRegister, setOpenRegister] = useState<boolean>(false);
   const cart = useSelector((state: RootState) => state.cart.cart);
   const cartQuantity = cart.map((item) => item.quantity);
-  const total = cartQuantity.reduce((a, b) => a + b);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -58,7 +57,12 @@ export default function Navbar() {
           </Link>
           <div className='lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0'>
             <Link to='/cart' className='ml-5'>
-              <Badge badgeContent={total} color='primary'>
+              <Badge
+                badgeContent={
+                  cart.length === 0 ? 0 : cartQuantity.reduce((a, b) => a + b)
+                }
+                color='primary'
+              >
                 <LocalMallIcon />
               </Badge>
             </Link>

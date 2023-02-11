@@ -1,5 +1,8 @@
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { AppDispatch } from '../../redux/store';
+import { addToCart } from '../../redux/thunk/cart';
 
 import { RiderProduct } from '../../types/type';
 
@@ -8,8 +11,9 @@ type PropType = {
 };
 
 export default function ProductItem({ product }: PropType) {
+  const dispatch = useDispatch<AppDispatch>();
   const putInCart = (item: RiderProduct) => {
-    console.log(item);
+    dispatch(addToCart(item));
   };
   return (
     <div className='lg:w-1/4 md:w-1/2 p-4 w-full' key={uuidv4()}>

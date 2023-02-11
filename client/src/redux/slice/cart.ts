@@ -15,7 +15,6 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      console.log(action.payload); //product
       const index = state.cart.findIndex(
         (product) => product.id === action.payload.id
       );
@@ -25,6 +24,12 @@ const cartSlice = createSlice({
       } else {
         state.cart.push(addProduct);
       }
+    },
+    removeCart: (state, action) => {
+      const index = state.cart.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      state.cart.splice(index, 1);
     },
   },
 });
