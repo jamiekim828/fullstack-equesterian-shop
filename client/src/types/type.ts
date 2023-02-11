@@ -33,6 +33,7 @@ export type EditValue = {
 
 export type Cart = {
   id: string;
+  image: string;
   title: string;
   price: number;
   quantity: number;
