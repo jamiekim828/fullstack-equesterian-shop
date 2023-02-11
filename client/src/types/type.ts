@@ -14,12 +14,14 @@ export type UserData = {
 };
 
 export type RiderProduct = {
+  id?: string;
   title: string;
   price: number;
   image: string;
 };
 
 export type HorseProduct = {
+  id?: string;
   title: string;
   price: number;
   image: string;

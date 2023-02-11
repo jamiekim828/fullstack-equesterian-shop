@@ -6,6 +6,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Cart } from '../types/type';
 import { AppDispatch } from '../redux/store';
 import { actions } from '../redux/slice/cart';
+import { Link } from 'react-router-dom';
 
 type Prop = {
   cartItem: Cart;

@@ -10,7 +10,6 @@ export function addToCart(newProduct: HorseProduct | RiderProduct) {
   return async (dispatch: AppDispatch) => {
     const response = await axios.post(`${url}/cart`, newProduct);
     const cartData = await response.data;
-    console.log(cartData); // comes from res.send()
     dispatch(actions.addToCart(newProduct));
   };
 }
