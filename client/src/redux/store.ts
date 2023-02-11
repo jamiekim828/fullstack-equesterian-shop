@@ -3,9 +3,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slice/user';
 import riderReducer from './slice/rider';
 import horseReducer from './slice/horse';
+import cartReducer from './slice/cart';
 
 const store = configureStore({
-  reducer: { user: userReducer, rider: riderReducer, horse: horseReducer },
+  reducer: {
+    user: userReducer,
+    rider: riderReducer,
+    horse: horseReducer,
+    cart: cartReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

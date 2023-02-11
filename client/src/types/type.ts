@@ -5,6 +5,14 @@ export type User = {
   password: string;
 };
 
+export type UserData = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+};
+
 export type RiderProduct = {
   title: string;
   price: number;
@@ -23,10 +31,9 @@ export type EditValue = {
   email: string;
 };
 
-export type UserData = {
+export type Cart = {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+  title: string;
+  price: number;
+  quantity: number;
 };

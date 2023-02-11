@@ -56,9 +56,10 @@ export default function LogInForm({ handleClose }: Prop) {
   return (
     <div className=' '>
       <div className='  bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0'>
-        <h2 className='text-gray-900 text-lg font-large title-font mb-5'>
+        <h2 className='text-gray-900 text-lg font-large title-font mb-2'>
           Welcome back
         </h2>
+        <h3 className='text-gray-900 mb-5'>Please log in</h3>
         {wrongInfo === true && (
           <p className='text-red-700 text-sm'>
             Something wend wrong. Please check your email and password again.
