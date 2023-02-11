@@ -28,6 +28,7 @@ export default function CartDetail({ cartItem }: Prop) {
               <button
                 type='button'
                 className='w-10 h-6 text-gray-600 transition  hover:opacity-75 cursor-pointer'
+                onClick={() => dispatch(actions.minusCart(cartItem))}
               >
                 -
               </button>
@@ -44,6 +45,7 @@ export default function CartDetail({ cartItem }: Prop) {
               <button
                 type='button'
                 className='w-10 h-6 text-gray-600 transition hover:opacity-75 cursor-pointer'
+                onClick={() => dispatch(actions.addToCart(cartItem))}
               >
                 +
               </button>
