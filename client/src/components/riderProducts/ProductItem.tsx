@@ -18,7 +18,7 @@ export default function ProductItem({ product }: PropType) {
   return (
     <div className='lg:w-1/4 md:w-1/2 p-4 w-full' key={uuidv4()}>
       <Link
-        to={`/${product.id}`}
+        to={`/rider/${product.id}`}
         className='block relative h-70 rounded overflow-hidden'
       >
         <img

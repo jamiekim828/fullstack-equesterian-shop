@@ -12,17 +12,19 @@ import CartPage from './pages/CartPage';
 import Home from './pages/Home';
 
 function App() {
+  const renderPaths = (paths: string[], Element: JSX.Element) =>
+    paths.map((path) => <Route key={path} path={path} element={Element} />);
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/rider' element={<ProductList />} />
-        <Route path='/:id' element={<ProductDetail />} />
         <Route path='/horse' element={<HorseProductList />} />
-        <Route path='/:id' element={<HorseDetail />} />
         <Route path='/account' element={<Account />} />
         <Route path='/cart' element={<CartPage />} />
+        {renderPaths(['/rider/:id', '/:id'], <ProductDetail />)}
+        {renderPaths(['/horse/:id', '/:id'], <HorseDetail />)}
       </Routes>
       <Footer />
     </BrowserRouter>
