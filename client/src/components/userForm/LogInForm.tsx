@@ -47,7 +47,7 @@ export default function LogInForm({ handleClose }: Prop) {
       if (userList[index].password !== loginInfo.password) {
         setWrongInfo(true);
       }
-      dispatch(actions.setUser(loginInfo));
+      dispatch(actions.setUser(userList[index]));
       handleClose(true);
       navigate('/account');
     }
