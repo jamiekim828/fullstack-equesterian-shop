@@ -1,6 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { fetchHorseProductData } from '../redux/thunk/horse';
+import { fetchRiderProductData } from '../redux/thunk/rider';
+import { HorseProduct, RiderProduct } from '../types/type';
+import Search from './Search';
 
 export default function Main() {
+  const [userInput, setUserInput] = useState<string>('');
+  const [riderProd, setRiderProd] = useState<RiderProduct[]>([]);
+  const [horseProd, setHorseProd] = useState<HorseProduct[]>([]);
+
+  const riderProducts = useSelector(
+    (state: RootState) => state.rider.riderProducts
+  );
+  const horseProducts = useSelector(
+    (state: RootState) => state.horse.horseProducts
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchRiderProductData());
+    dispatch(fetchHorseProductData());
+  }, [dispatch]);
+
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+  };
+
+  const searchHandler = () => {
+    const riderResult = riderProducts.filter((prod) =>
+      prod.title.toLowerCase().includes(userInput.toLowerCase())
+    );
+    const horseResult = horseProducts.filter((prod) =>
+      prod.title.toLowerCase().includes(userInput.toLowerCase())
+    );
+    if (riderResult.length > 0) {
+      setRiderProd(riderResult);
+    }
+    if (horseResult.length > 0) {
+      setHorseProd(horseResult);
+    }
+    if (userInput === '') {
+      setRiderProd([]);
+      setHorseProd([]);
+    }
+  };
+
   return (
     <div>
       <section className=' body-font'>
@@ -33,10 +79,15 @@ export default function Main() {
                   type='text'
                   id='hero-field'
                   name='hero-field'
+                  value={userInput}
+                  onChange={inputHandler}
                   className='w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:ring-2 focus:ring-blue-200 focus:bg-transparent focus:border-blue-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 />
               </div>
-              <button className='inline-flex text-white bg-sky-800 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg'>
+              <button
+                onClick={() => searchHandler()}
+                className='inline-flex text-white bg-sky-800 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded text-lg'
+              >
                 Search
               </button>
             </div>
@@ -58,6 +109,20 @@ export default function Main() {
           </div>
         </div>
       </section>
+      <div className='flex ml-24'>
+        {riderProd.length > 0 &&
+          riderProd.map((prod) => (
+            <div key={prod.id} className='flex flex-wrap -m-4'>
+              <Search prod={prod} />
+            </div>
+          ))}
+        {horseProd.length > 0 &&
+          horseProd.map((prod) => (
+            <div key={prod.id} className='flex flex-wrap -m-4'>
+              <Search prod={prod} />
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
