@@ -50,19 +50,19 @@ export const createUser = async (req: Request, res: Response) => {
 
 // edit user
 export const updateUser = async (req: Request, res: Response) => {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     const index = userList.findIndex((user) => user.id === id);
 
     if (index !== -1) {
       userList[index] = {
-        id: uuid(),
+        id: id,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        email: req.body.email,
-        password: userList[index].password,
+        email: userList[index].email,
+        password: req.body.password,
       };
-      res.status(200).json(userList);
+      res.status(200).json(userList[index]);
     } else {
       res.status(404).json({ message: 'Update failed' });
     }

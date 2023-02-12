@@ -17,7 +17,13 @@ const SignupSchema = Yup.object().shape({
     .min(1, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Please enter your last name'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})/,
+      'At least 1 uppercase letter, 1 lowercase letter and 1 number'
+    ),
 });
 
 type Prop = {
@@ -36,9 +42,7 @@ export default function EditForm({ user, setFormOpen }: Prop) {
   const handleSave = (newInfo: EditValue) => {
     const index = users.findIndex((u) => u.email === user.email);
     const currentUser = users[index];
-    console.log(newInfo); //okay until here
     dispatch(editUserInfo(currentUser, newInfo));
-    // dispatch(actions.setUser(newInfo))
     setFormOpen(false);
   };
 
@@ -49,7 +53,7 @@ export default function EditForm({ user, setFormOpen }: Prop) {
           initialValues={{
             firstName: '',
             lastName: '',
-            email: '',
+            password: '',
           }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
@@ -90,17 +94,17 @@ export default function EditForm({ user, setFormOpen }: Prop) {
               </div>
               <div className='relative mb-4'>
                 <label className='leading-7 text-sm text-gray-600'>
-                  E-mail
+                  Password
                 </label>
                 <input
-                  type='email'
-                  id='email'
-                  name='email'
+                  type='text'
+                  id='password'
+                  name='password'
                   onChange={handleChange}
                   className='w-full bg-white rounded border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out'
                 />
-                {errors.email && touched.email ? (
-                  <p className='text-red-700 text-sm'>{errors.email}</p>
+                {errors.password && touched.password ? (
+                  <p className='text-red-700 text-sm'>{errors.password}</p>
                 ) : null}
               </div>
 

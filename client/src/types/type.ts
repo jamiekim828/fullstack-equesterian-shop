@@ -1,4 +1,5 @@
 export type User = {
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -30,7 +31,7 @@ export type HorseProduct = {
 export type EditValue = {
   firstName: string;
   lastName: string;
-  email: string;
+  password: string;
 };
 
 export type Cart = {

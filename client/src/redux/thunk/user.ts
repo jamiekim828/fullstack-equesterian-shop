@@ -30,10 +30,9 @@ export function registerNewUser(user: User) {
 export function editUserInfo(currentUser: UserData, editInfo: EditValue) {
   return async (dispatch: AppDispatch) => {
     const response = await axios.put(`${url}/user/${currentUser.id}`, editInfo);
-
     const editData = await response.data;
-    console.log(editData);
-    dispatch(actions.getUserList(editData));
+
+    dispatch(actions.setUser(editData));
   };
 }
 

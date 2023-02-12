@@ -15,7 +15,9 @@ export default function UserInformation() {
   }, [dispatch]);
 
   const index = users.findIndex((person) => person.email === user.email);
-  const loginUser = users[index];
+  const newUsers = users.map((u) => (u.email === user.email ? user : u));
+  const loginUser = newUsers[index];
+  console.log(loginUser);
 
   return (
     <div className='flex lg:ml-80 mt-28 md:ml-48 sm:ml-12  lg:flex-row md:flex-row'>
