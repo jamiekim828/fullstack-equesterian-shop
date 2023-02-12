@@ -12,8 +12,8 @@ export default function Cart() {
   };
 
   return (
-    <div className='flex mt-5 justify-center align-center lg:flex-row md:flex-col sm:flex-col'>
-      <div className='flex flex-col mr-14 lg:w-2/4 md:w-full sm:w-full'>
+    <div className='flex mt-5 justify-center align-center lg:flex-row md:flex-row sm:flex-col xs:flex-col'>
+      <div className='flex flex-col mr-14 lg:w-2/4 md:w-2/4 sm:w-3/4 xs:w-3/4'>
         <h1 className='text-2xl border-b-2 border-1 border-black mb-5'>
           My bag
         </h1>
@@ -28,7 +28,7 @@ export default function Cart() {
           </div>
         )}
       </div>
-      <div className='flex flex-col ml-14 lg:w-1/4 md:w-full sm:w-full'>
+      <div className='flex flex-col ml-14 lg:w-1/4 md:w-1/4 sm:w-3/4 xs:w-3/4'>
         <h2 className='text-4xl border-b-2 border-1 border-black mb-5'>
           Order summary
         </h2>
