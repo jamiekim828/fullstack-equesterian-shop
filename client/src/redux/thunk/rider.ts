@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { AppDispatch } from '../store';
-import { actions } from '../slice/rider';
+import { riderActions } from '../slice/rider';
 
 const url = 'http://localhost:8000';
 
@@ -11,6 +11,6 @@ export function fetchRiderProductData() {
     const response = await axios.get(`${url}/rider`);
     const riderProductData = await response.data;
 
-    dispatch(actions.getRiderProducts(riderProductData));
+    dispatch(riderActions.getRiderProducts(riderProductData));
   };
 }

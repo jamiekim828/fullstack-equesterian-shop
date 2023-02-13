@@ -7,18 +7,24 @@ import Badge from '@mui/material/Badge';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogInForm from './userForm/LogInForm';
 import RegisterForm from './userForm/RegisterForm';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { Cart } from '../types/type';
 
 export default function Navbar() {
   const [open, setOpen] = useState<boolean>(false);
   const [openLogIn, setOpenLogIn] = useState<boolean>(true);
   const [openRegister, setOpenRegister] = useState<boolean>(false);
+
   const cart = useSelector((state: RootState) => state.cart.cart);
-  const cartQuantity = cart.map((item) => item.quantity);
+  const cartQuantity = cart.map((item:Cart) => item.quantity);
+
+  const riderWishList = JSON.parse(localStorage.getItem('riderWish')|| '{}');
+  const horseWishList = JSON.parse(localStorage.getItem('horseWish')|| '{}');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,6 +62,7 @@ export default function Navbar() {
             <span className='ml-3 text-3xl uppercase'>Equesterian</span>
           </Link>
           <div className='lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0'>
+            <Link to='/wishlist' className='ml-5'><FavoriteIcon /></Link>
             <Link to='/cart' className='ml-5'>
               <Badge
                 badgeContent={

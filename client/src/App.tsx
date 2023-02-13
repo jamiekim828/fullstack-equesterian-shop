@@ -7,6 +7,7 @@ import HorseProductList from './components/horseProducts/HorseProductList';
 import Navbar from './components/Navbar';
 import ProductDetail from './components/riderProducts/ProductDetail';
 import ProductList from './components/riderProducts/ProductList';
+import WishList from './pages/WishList';
 import Account from './pages/Account';
 import CartPage from './pages/CartPage';
 import Home from './pages/Home';
@@ -25,6 +26,7 @@ function App() {
         <Route path='/cart' element={<CartPage />} />
         {renderPaths(['/rider/:id', '/:id'], <ProductDetail />)}
         {renderPaths(['/horse/:id', '/:id'], <HorseDetail />)}
+        <Route path='/wishlist' element={<WishList />}/>
       </Routes>
       <Footer />
     </BrowserRouter>

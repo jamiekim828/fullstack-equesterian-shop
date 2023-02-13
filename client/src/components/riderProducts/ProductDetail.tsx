@@ -1,17 +1,31 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { actions } from '../../redux/slice/cart';
+import { cartActions } from '../../redux/slice/cart';
+import { riderActions } from '../../redux/slice/rider'
 import { AppDispatch, RootState } from '../../redux/store';
+import { RiderProduct } from '../../types/type';
 
 export default function ProductDetail() {
   const id = useParams().id;
   const riderProducts = useSelector(
     (state: RootState) => state.rider.riderProducts
   );
+  const wishList = useSelector((state:RootState)=> state.rider.wishList)
+  localStorage.setItem("riderWish", JSON.stringify(wishList));
   const index = riderProducts.findIndex((item) => item.id === id);
   const detail = riderProducts[index];
   const dispatch = useDispatch<AppDispatch>();
+  const wishListHandler = (item: RiderProduct) => {
+    const duplicate = wishList.some(prod=> prod.id === item.id)
+    if(duplicate===false) {
+      dispatch(riderActions.addWishList(item))
+    } else {
+      dispatch(riderActions.removeWishList(item))
+    }
+  }
+  
+
 
   return (
     <section className='text-gray-600 body-font overflow-hidden'>
@@ -19,7 +33,7 @@ export default function ProductDetail() {
         <div className='lg:w-4/5 mx-auto flex flex-wrap'>
           <img
             alt='detail'
-            className='lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded'
+            className='lg:w-1/2 w-full lg:h-auto h-80 object-cover object-center rounded'
             src={detail.image}
           />
           <div className='lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0'>
@@ -58,9 +72,9 @@ export default function ProductDetail() {
                     <svg
                       fill='none'
                       stroke='currentColor'
-                      stroke-linecap='round'
-                      stroke-linejoin='round'
-                      stroke-width='2'
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth='2'
                       className='w-4 h-4'
                       viewBox='0 0 24 24'
                     >
@@ -75,17 +89,23 @@ export default function ProductDetail() {
                 $58.00
               </span>
               <button
-                onClick={() => dispatch(actions.addToCart(detail))}
+                onClick={() => dispatch(cartActions.addToCart(detail))}
                 className='flex ml-auto text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-slate-400'
               >
                 ADD
               </button>
-              <button className='rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4'>
+              <button 
+              onClick={()=> wishListHandler(detail)}
+              className={`rounded-full w-10 h-10 p-0 border-0 inline-flex items-center justify-center ml-4 bg-gray-200 ${
+                wishList.some((i) => i.id === detail.id)
+                  ?  'text-red-500'
+                  :  'text-gray-500'
+              }`}>
                 <svg
                   fill='currentColor'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  stroke-width='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
                   className='w-5 h-5'
                   viewBox='0 0 24 24'
                 >

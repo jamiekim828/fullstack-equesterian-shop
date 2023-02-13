@@ -5,8 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import { Cart } from '../types/type';
 import { AppDispatch } from '../redux/store';
-import { actions } from '../redux/slice/cart';
-import { Link } from 'react-router-dom';
+import { cartActions } from '../redux/slice/cart';
 
 type Prop = {
   cartItem: Cart;
@@ -14,7 +13,7 @@ type Prop = {
 export default function CartDetail({ cartItem }: Prop) {
   const dispatch = useDispatch<AppDispatch>();
   const removeHandler = (item: Cart) => {
-    dispatch(actions.removeCart(item));
+    dispatch(cartActions.removeCart(item));
   };
   return (
     <div className='flex justify-between h-24 mb-2'>
@@ -29,7 +28,7 @@ export default function CartDetail({ cartItem }: Prop) {
               <button
                 type='button'
                 className='w-10 h-6 text-gray-600 transition  hover:opacity-75 cursor-pointer'
-                onClick={() => dispatch(actions.minusCart(cartItem))}
+                onClick={() => dispatch(cartActions.minusCart(cartItem))}
               >
                 -
               </button>
@@ -46,7 +45,7 @@ export default function CartDetail({ cartItem }: Prop) {
               <button
                 type='button'
                 className='w-10 h-6 text-gray-600 transition hover:opacity-75 cursor-pointer'
-                onClick={() => dispatch(actions.addToCart(cartItem))}
+                onClick={() => dispatch(cartActions.addToCart(cartItem))}
               >
                 +
               </button>
