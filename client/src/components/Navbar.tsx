@@ -59,7 +59,7 @@ export default function Navbar() {
             className='flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0'
           >
             <BedroomBabyIcon sx={{ fontSize: '30px' }} />
-            <span className='ml-3 text-3xl uppercase'>Equesterian</span>
+            <span className='ml-3 text-3xl uppercase'>Equestrian</span>
           </Link>
           <div className='lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0'>
             <Link to='/wishlist' className='ml-5'><FavoriteIcon /></Link>
