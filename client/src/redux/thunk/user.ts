@@ -4,7 +4,7 @@ import { AppDispatch } from '../store';
 import { actions } from '../slice/user';
 import { EditValue, User, UserData } from '../../types/type';
 
-const url = 'http://localhost:8000';
+const url = 'https://back-end-equestrian.onrender.com';
 
 // fetch all users
 export function fetchUserData() {
